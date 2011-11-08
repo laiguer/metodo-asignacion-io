@@ -187,7 +187,7 @@ public class FRPrincipal extends javax.swing.JFrame {
 
         pnlFondo.setBackground(new java.awt.Color(255, 255, 255));
 
-        tablaCostos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tablaCostos.setFont(new java.awt.Font("Tahoma", 0, 14));
         tablaCostos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -215,22 +215,22 @@ public class FRPrincipal extends javax.swing.JFrame {
 
         pnlHeader.setBackground(new java.awt.Color(102, 0, 0));
 
-        lblFilas.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        lblFilas.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12));
         lblFilas.setForeground(new java.awt.Color(255, 255, 255));
         lblFilas.setText("# Filas:");
 
-        txtFilas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtFilas.setFont(new java.awt.Font("Tahoma", 0, 12));
         txtFilas.setText("0");
 
-        lblColumnas.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        lblColumnas.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12));
         lblColumnas.setForeground(new java.awt.Color(255, 255, 255));
         lblColumnas.setText("# Columnas:");
 
-        txtColumnas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        txtColumnas.setFont(new java.awt.Font("Tahoma", 0, 12));
         txtColumnas.setText("0");
 
         btnSolucionOptima.setBackground(new java.awt.Color(255, 255, 255));
-        btnSolucionOptima.setFont(new java.awt.Font("Comic Sans MS", 0, 10)); // NOI18N
+        btnSolucionOptima.setFont(new java.awt.Font("Comic Sans MS", 0, 10));
         btnSolucionOptima.setText("Solucion Optima");
         btnSolucionOptima.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
         btnSolucionOptima.addActionListener(new java.awt.event.ActionListener() {
@@ -240,7 +240,7 @@ public class FRPrincipal extends javax.swing.JFrame {
         });
 
         btnResolver.setBackground(new java.awt.Color(255, 255, 255));
-        btnResolver.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        btnResolver.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
         btnResolver.setText("Resolver");
         btnResolver.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
         btnResolver.addActionListener(new java.awt.event.ActionListener() {
@@ -282,13 +282,13 @@ public class FRPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lblInfoIngresar.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
-        lblInfoIngresar.setText("Ingrese el costo correspondiente a cada celda.");
+        lblInfoIngresar.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12));
+        lblInfoIngresar.setText("Ingrese el costo correspondiente a cada celda seguido del boton \"Enter\".");
 
         pnlSolucion.setBackground(new java.awt.Color(255, 255, 255));
 
         txtSolucion.setColumns(20);
-        txtSolucion.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12)); // NOI18N
+        txtSolucion.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12));
         txtSolucion.setForeground(new java.awt.Color(51, 51, 51));
         txtSolucion.setRows(5);
         txtSolucion.setBorder(null);
@@ -320,16 +320,16 @@ public class FRPrincipal extends javax.swing.JFrame {
             .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlFondoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblInfoIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(pnlFondoLayout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(pnlSolucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(pnlFondoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(scrTablaCostos, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(pnlFondoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblInfoIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         pnlFondoLayout.setVerticalGroup(
             pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,7 +363,7 @@ public class FRPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnResolverActionPerformed
 
     private void btnSolucionOptimaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolucionOptimaActionPerformed
-        // TODO add your handling code here:
+        uiAsignacion.calcularSolOptima(this);
     }//GEN-LAST:event_btnSolucionOptimaActionPerformed
 
     /**
