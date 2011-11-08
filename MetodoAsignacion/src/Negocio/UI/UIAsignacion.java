@@ -37,7 +37,7 @@ public class UIAsignacion {
             int nFilasFicticias = 0;
             if ((filas > 0) && (columnas > 0)) {
                 columnas++;
-                if (( (columnas - 1) - filas) != 0) {
+                if (((columnas - 1) - filas) != 0) {
                     if ((columnas - 1) < filas) {
                         nColumnasFicticias = filas - (columnas - 1);
                         columnas += nColumnasFicticias;
@@ -46,7 +46,7 @@ public class UIAsignacion {
                         filas += nFilasFicticias;
                     }
                 }
-                final boolean [] columnasEditables = columnasEditar(columnas);
+                final boolean[] columnasEditables = columnasEditar(columnas);
                 ventana.getTablaCostos().setModel(new javax.swing.table.DefaultTableModel(
                         cantidadFilas(filas, columnas, nFilasFicticias, nColumnasFicticias),
                         cantidadColumnas(columnas, filas, nColumnasFicticias)) {
@@ -66,7 +66,7 @@ public class UIAsignacion {
                 for (int i = 0; i < columnas; i++) {
                     ventana.getTablaCostos().getColumnModel().getColumn(i).setResizable(false);
                 }
-                
+
                 ventana.getScrTablaCostos().setViewportView(ventana.getTablaCostos());
                 ventana.setSize(630, 670);
                 ventana.getBtnSolucionOptima().setVisible(true);
@@ -84,7 +84,7 @@ public class UIAsignacion {
             if (i == 0) {
                 header[i] = "";
             } else {
-                if ( (i >= (cantColumnas - nColumnasFicticias)) && (nColumnasFicticias > 0)) {
+                if ((i >= (cantColumnas - nColumnasFicticias)) && (nColumnasFicticias > 0)) {
                     header[i] = "Fict." + i;
                 } else {
                     header[i] = "C" + i;
@@ -120,13 +120,14 @@ public class UIAsignacion {
         return contenidoTabla;
     }
 
-    public boolean [] columnasEditar(int cantColumnas){
-        boolean [] retorno = new boolean [cantColumnas];
+    public boolean[] columnasEditar(int cantColumnas) {
+        boolean[] retorno = new boolean[cantColumnas];
         for (int i = 0; i < retorno.length; i++) {
-            if(i == 0)
+            if (i == 0) {
                 retorno[i] = false;
-            else
+            } else {
                 retorno[i] = true;
+            }
         }
         return retorno;
     }
