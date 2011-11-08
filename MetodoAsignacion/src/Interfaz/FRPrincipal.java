@@ -187,7 +187,7 @@ public class FRPrincipal extends javax.swing.JFrame {
 
         pnlFondo.setBackground(new java.awt.Color(255, 255, 255));
 
-        tablaCostos.setFont(new java.awt.Font("Tahoma", 0, 14));
+        tablaCostos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         tablaCostos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -207,6 +207,7 @@ public class FRPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tablaCostos.setGridColor(new java.awt.Color(0, 0, 0));
         scrTablaCostos.setViewportView(tablaCostos);
         tablaCostos.getColumnModel().getColumn(0).setResizable(false);
         tablaCostos.getColumnModel().getColumn(1).setResizable(false);
