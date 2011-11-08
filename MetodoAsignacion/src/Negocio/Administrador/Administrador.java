@@ -54,7 +54,7 @@ public class Administrador {
     public int [][] restarValorMenorColumnas(int[][] matriz){
         int[] valoresMenores = new int[matriz[0].length];
         for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
+            for (int j = 0;  j < matriz[i].length; j++) {
                 if (j == 0) {
                     valoresMenores[i] = matriz[j][i];
                 } else {
