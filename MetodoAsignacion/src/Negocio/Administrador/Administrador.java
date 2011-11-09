@@ -10,19 +10,46 @@ package Negocio.Administrador;
  */
 public class Administrador {
 
+    private int[][] matriz;
+    private int[] filasRayadas = new int[matriz.length];
+    private int[] columnasRayadas = new int[matriz.length];
+
     public Administrador() {
     }
 
-    public void calcularSolOptima(int[][] matriz) {
-        matriz = restarValorMenorFilas(matriz);
-        matriz = restarValorMenorColumnas(matriz);
-        int [] filasRayadas = new int[matriz.length];
-        int [] columnasRayadas = new int[matriz.length];
+    public int[] getColumnasRayadas() {
+        return columnasRayadas;
+    }
+
+    public void setColumnasRayadas(int[] columnasRayadas) {
+        this.columnasRayadas = columnasRayadas;
+    }
+
+    public int[] getFilasRayadas() {
+        return filasRayadas;
+    }
+
+    public void setFilasRayadas(int[] filasRayadas) {
+        this.filasRayadas = filasRayadas;
+    }
+
+    public int[][] getMatriz() {
+        return matriz;
+    }
+
+    public void setMatriz(int[][] matriz) {
+        this.matriz = matriz;
+    }
+
+    public void calcularSolOptima(int[][] matrizUI) {
+        setMatriz(matrizUI);
+        matriz = restarValorMenorFilas();
+        matriz = restarValorMenorColumnas();
         for (int i = 0; i < columnasRayadas.length; i++) {
             columnasRayadas[i] = 0;
             filasRayadas[i] = 0;
         }
-        System.out.println("Rayas = "+rayar(matriz, filasRayadas, columnasRayadas));
+        System.out.println("Rayas = " + rayar());
 
     }
 
@@ -37,7 +64,7 @@ public class Administrador {
         System.out.println(valoresMatriz);
     }
 
-    public int[][] restarValorMenorFilas(int[][] matriz) {
+    public int[][] restarValorMenorFilas() {
         int[] valoresMenores = new int[matriz.length];
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
@@ -58,7 +85,7 @@ public class Administrador {
         return matriz;
     }
 
-    public int[][] restarValorMenorColumnas(int[][] matriz) {
+    public int[][] restarValorMenorColumnas() {
         int[] valoresMenores = new int[matriz[0].length];
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
@@ -79,7 +106,7 @@ public class Administrador {
         return matriz;
     }
 
-    public String cantCerosFilasColumnas(int[][] matriz, int[] filasRayadas, int[] columnasRayadas) {
+    public String cantCerosFilasColumnas() {
         String strCerosFilasColumnas = "";
         int cantCeros = 0;
         for (int i = 0; i < matriz.length; i++) {
@@ -90,7 +117,7 @@ public class Administrador {
                     }
                 }
             }
-            if ( (filasRayadas[i] == 0) && ( cantCeros > 0) ) {
+            if ((filasRayadas[i] == 0) && (cantCeros > 0)) {
                 strCerosFilasColumnas += "1" + i + cantCeros + "-";
             }
             cantCeros = 0;
@@ -104,11 +131,11 @@ public class Administrador {
                 }
             }
             if (i == (matriz.length - 1)) {
-                if ((columnasRayadas[i] == 0) && ( cantCeros > 0)) {
+                if ((columnasRayadas[i] == 0) && (cantCeros > 0)) {
                     strCerosFilasColumnas += "2" + i + cantCeros;
                 }
             } else {
-                if ((columnasRayadas[i] == 0) && ( cantCeros > 0)) {
+                if ((columnasRayadas[i] == 0) && (cantCeros > 0)) {
                     strCerosFilasColumnas += "2" + i + cantCeros + "-";
                 }
             }
@@ -117,8 +144,8 @@ public class Administrador {
         return strCerosFilasColumnas;
     }
 
-    public int rayar(int[][] matriz, int[] filasRayadas, int[] columnasRayadas) {
-        String strCerosFilasColumnas = cantCerosFilasColumnas(matriz, filasRayadas, columnasRayadas);
+    public int rayar() {
+        String strCerosFilasColumnas = cantCerosFilasColumnas();
         while (strCerosFilasColumnas.isEmpty() == false) {
             System.out.println(strCerosFilasColumnas);
             String[] cantCerosFilCol = strCerosFilasColumnas.split("-");
@@ -142,9 +169,9 @@ public class Administrador {
                 columnasRayadas[Integer.parseInt(index)] = 1;
                 System.out.println("Columna " + filColRayar.charAt(1) + " rayada.");
             }
-            strCerosFilasColumnas = cantCerosFilasColumnas(matriz, filasRayadas, columnasRayadas);
+            strCerosFilasColumnas = cantCerosFilasColumnas();
         }
-        return cantRayas(filasRayadas, columnasRayadas);
+        return cantRayas();
     }
 
     public int numeroCeros(String info) {
@@ -157,7 +184,7 @@ public class Administrador {
         return Integer.parseInt(numero);
     }
 
-    public int cantRayas(int[] filasRayadas, int[] columnasRayadas) {
+    public int cantRayas() {
         int cantRayas = 0;
         for (int i = 0; i < filasRayadas.length; i++) {
             if (filasRayadas[i] == 1) {
@@ -170,5 +197,22 @@ public class Administrador {
             }
         }
         return cantRayas;
+    }
+
+    public int numeroMenorNoRayado() {
+        int numeroMenor = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (i == 0) {
+                    numeroMenor = matriz[i][j];
+                }
+                if ((filasRayadas[i] == 0) && (columnasRayadas[j] == 0)) {
+                    if (matriz[i][j] < numeroMenor) {
+                        numeroMenor = matriz[i][j];
+                    }
+                }
+            }
+        }
+        return numeroMenor;
     }
 }
