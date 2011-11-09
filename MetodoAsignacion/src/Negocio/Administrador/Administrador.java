@@ -63,10 +63,11 @@ public class Administrador {
         }
         System.out.println("Rayas = " + rayar());
         System.out.println("Numero menor no rayado = "+numeroMenorNoRayado());
-
+        restarMenorNoRayado(numeroMenorNoRayado());
+        imprimirMatriz();
     }
 
-    public void imprimirMatriz(int[][] matriz) {
+    public void imprimirMatriz() {
         String valoresMatriz = "";
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
@@ -227,5 +228,15 @@ public class Administrador {
             }
         }
         return numeroMenor;
+    }
+
+    public void restarMenorNoRayado(int numeroMenor){
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if ((filasRayadas[i] == 0) && (columnasRayadas[j] == 0)) {
+                        matriz[i][j] = matriz[i][j] - numeroMenor;
+                }
+            }
+        }
     }
 }
