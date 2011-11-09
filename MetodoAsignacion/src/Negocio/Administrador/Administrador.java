@@ -61,9 +61,9 @@ public class Administrador {
             columnasRayadas[i] = 0;
             filasRayadas[i] = 0;
         }
-        System.out.println("Rayas = " + rayar());
-        System.out.println("Numero menor no rayado = "+numeroMenorNoRayado());
-        restarMenorNoRayado(numeroMenorNoRayado());
+        while( rayar() < matriz.length){
+            restarMenorNoRayado(numeroMenorNoRayado());
+        }
         imprimirMatriz();
     }
 
@@ -235,6 +235,9 @@ public class Administrador {
             for (int j = 0; j < matriz[i].length; j++) {
                 if ((filasRayadas[i] == 0) && (columnasRayadas[j] == 0)) {
                         matriz[i][j] = matriz[i][j] - numeroMenor;
+                }
+                if( (filasRayadas[i] == 1) && (columnasRayadas[j] == 1)){
+                    matriz[i][j] = matriz[i][j] + numeroMenor;
                 }
             }
         }
