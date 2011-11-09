@@ -33,7 +33,7 @@ public class FRPrincipal extends javax.swing.JFrame {
     public FRPrincipal() {
         initComponents();
         btnSolucionOptima.setVisible(false);
-        setSize(592, 90);
+        setSize(592, 110);
         setLocationRelativeTo(this);
     }
 
@@ -216,23 +216,23 @@ public class FRPrincipal extends javax.swing.JFrame {
 
         pnlHeader.setBackground(new java.awt.Color(102, 0, 0));
 
-        lblFilas.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12));
+        lblFilas.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 18)); // NOI18N
         lblFilas.setForeground(new java.awt.Color(255, 255, 255));
         lblFilas.setText("# Filas:");
 
-        txtFilas.setFont(new java.awt.Font("Tahoma", 0, 12));
+        txtFilas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtFilas.setText("0");
 
-        lblColumnas.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12));
+        lblColumnas.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 18)); // NOI18N
         lblColumnas.setForeground(new java.awt.Color(255, 255, 255));
         lblColumnas.setText("# Columnas:");
 
-        txtColumnas.setFont(new java.awt.Font("Tahoma", 0, 12));
+        txtColumnas.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txtColumnas.setText("0");
 
         btnSolucionOptima.setBackground(new java.awt.Color(255, 255, 255));
-        btnSolucionOptima.setFont(new java.awt.Font("Comic Sans MS", 0, 10));
-        btnSolucionOptima.setText("Solucion Optima");
+        btnSolucionOptima.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        btnSolucionOptima.setText("Resolver");
         btnSolucionOptima.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
         btnSolucionOptima.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,7 +242,7 @@ public class FRPrincipal extends javax.swing.JFrame {
 
         btnResolver.setBackground(new java.awt.Color(255, 255, 255));
         btnResolver.setFont(new java.awt.Font("Comic Sans MS", 0, 14));
-        btnResolver.setText("Resolver");
+        btnResolver.setText("Crear Tabla");
         btnResolver.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 255, 255), 3, true));
         btnResolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -260,10 +260,10 @@ public class FRPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(lblColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblColumnas)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(btnResolver, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnSolucionOptima, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -278,8 +278,8 @@ public class FRPrincipal extends javax.swing.JFrame {
                     .addComponent(lblColumnas, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFilas, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSolucionOptima, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnResolver, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnResolver, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSolucionOptima, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -289,12 +289,9 @@ public class FRPrincipal extends javax.swing.JFrame {
         pnlSolucion.setBackground(new java.awt.Color(255, 255, 255));
 
         txtSolucion.setColumns(20);
-        txtSolucion.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 12));
-        txtSolucion.setForeground(new java.awt.Color(51, 51, 51));
+        txtSolucion.setFont(new java.awt.Font("MS Reference Sans Serif", 0, 18)); // NOI18N
+        txtSolucion.setForeground(new java.awt.Color(0, 0, 153));
         txtSolucion.setRows(5);
-        txtSolucion.setBorder(null);
-        txtSolucion.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        txtSolucion.setEnabled(false);
         scrSolucion.setViewportView(txtSolucion);
 
         javax.swing.GroupLayout pnlSolucionLayout = new javax.swing.GroupLayout(pnlSolucion);
@@ -303,14 +300,14 @@ public class FRPrincipal extends javax.swing.JFrame {
             pnlSolucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSolucionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrSolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 585, Short.MAX_VALUE)
+                .addComponent(scrSolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE)
                 .addContainerGap())
         );
         pnlSolucionLayout.setVerticalGroup(
             pnlSolucionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlSolucionLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrSolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                .addComponent(scrSolucion, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -321,16 +318,16 @@ public class FRPrincipal extends javax.swing.JFrame {
             .addComponent(pnlHeader, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pnlFondoLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(lblInfoIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(95, Short.MAX_VALUE))
+            .addGroup(pnlFondoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrTablaCostos, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(pnlFondoLayout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(pnlSolucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(pnlFondoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrTablaCostos, javax.swing.GroupLayout.DEFAULT_SIZE, 605, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(pnlFondoLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblInfoIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(79, Short.MAX_VALUE))
         );
         pnlFondoLayout.setVerticalGroup(
             pnlFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,9 +336,9 @@ public class FRPrincipal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblInfoIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrTablaCostos, javax.swing.GroupLayout.DEFAULT_SIZE, 441, Short.MAX_VALUE)
+                .addComponent(scrTablaCostos, javax.swing.GroupLayout.PREFERRED_SIZE, 467, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(pnlSolucion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlSolucion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

@@ -12,8 +12,10 @@ public class Administrador {
 
     private int[][] matriz;
     private int[][] matrizOriginal;
+    private int[][] matrizAsignaciones;
     private int[] filasRayadas;
     private int[] columnasRayadas;
+    private int[] filasAsignadas;
 
     public Administrador() {
     }
@@ -50,28 +52,59 @@ public class Administrador {
         this.matrizOriginal = matrizOriginal;
     }
 
-    public void calcularSolOptima(int[][] matrizUI) {
-        setMatriz(matrizUI);
-        setMatrizOriginal(matrizUI);
+    public int[][] getMatrizAsignaciones() {
+        return matrizAsignaciones;
+    }
+
+    public void setMatrizAsignaciones(int[][] matrizAsignaciones) {
+        this.matrizAsignaciones = matrizAsignaciones;
+    }
+
+    public int[] getFilasAsignadas() {
+        return filasAsignadas;
+    }
+
+    public void setFilasAsignadas(int[] filasAsignadas) {
+        this.filasAsignadas = filasAsignadas;
+    }
+
+    public String calcularSolOptima(int[][] matrizUI) {
+        matriz = new int[matrizUI.length][matrizUI.length];
+        matrizOriginal = new int[matrizUI.length][matrizUI.length];
+        matrizAsignaciones = new int[matrizUI.length][matrizUI.length];
+        for (int i = 0; i < matrizUI.length; i++) {
+            for (int j = 0; j < matrizUI[i].length; j++) {
+                matrizOriginal[i][j] = matrizUI[i][j];
+                matriz[i][j] = matrizUI[i][j];
+            }
+        }
+        resetearMatrizAsignaciones();
+        filasAsignadas = new int[matriz.length];
         filasRayadas = new int[matriz.length];
         columnasRayadas = new int[matriz.length];
+        imprimirMatriz(matriz);
         matriz = restarValorMenorFilas();
         matriz = restarValorMenorColumnas();
+        imprimirMatriz(matriz);
         for (int i = 0; i < columnasRayadas.length; i++) {
             columnasRayadas[i] = 0;
             filasRayadas[i] = 0;
+            filasAsignadas[i] = 0;
         }
-        while( rayar() < matriz.length){
+        while (rayar() < matriz.length) {
             restarMenorNoRayado(numeroMenorNoRayado());
+            System.out.println("menor no rayado: " + numeroMenorNoRayado());
+            imprimirMatriz(matriz);
         }
-        imprimirMatriz();
+        realizarAsignaciones();
+        return resultado();
     }
 
-    public void imprimirMatriz() {
+    public void imprimirMatriz(int[][] m) {
         String valoresMatriz = "";
-        for (int i = 0; i < matriz.length; i++) {
-            for (int j = 0; j < matriz[i].length; j++) {
-                valoresMatriz += matriz[i][j] + " - ";
+        for (int i = 0; i < m.length; i++) {
+            for (int j = 0; j < m[i].length; j++) {
+                valoresMatriz += m[i][j] + " - ";
             }
             valoresMatriz += "\n";
         }
@@ -161,7 +194,6 @@ public class Administrador {
     public int rayar() {
         String strCerosFilasColumnas = cantCerosFilasColumnas();
         while (strCerosFilasColumnas.isEmpty() == false) {
-            System.out.println(strCerosFilasColumnas);
             String[] cantCerosFilCol = strCerosFilasColumnas.split("-");
             String valor_temporal;
             int i, j;
@@ -178,10 +210,10 @@ public class Administrador {
             String index = filColRayar.charAt(1) + "";
             if (filColRayar.charAt(0) == '1') {
                 filasRayadas[Integer.parseInt(index)] = 1;
-                System.out.println("Fila " + filColRayar.charAt(1) + " rayada.");
+                System.out.println("Fila " + Integer.parseInt(index) + " rayada");
             } else {
                 columnasRayadas[Integer.parseInt(index)] = 1;
-                System.out.println("Columna " + filColRayar.charAt(1) + " rayada.");
+                System.out.println("Columna " + Integer.parseInt(index) + " rayada");
             }
             strCerosFilasColumnas = cantCerosFilasColumnas();
         }
@@ -214,12 +246,9 @@ public class Administrador {
     }
 
     public int numeroMenorNoRayado() {
-        int numeroMenor = 0;
+        int numeroMenor = 99999 * 99999;
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
-                if (i == 0) {
-                    numeroMenor = matriz[i][j];
-                }
                 if ((filasRayadas[i] == 0) && (columnasRayadas[j] == 0)) {
                     if (matriz[i][j] < numeroMenor) {
                         numeroMenor = matriz[i][j];
@@ -230,16 +259,127 @@ public class Administrador {
         return numeroMenor;
     }
 
-    public void restarMenorNoRayado(int numeroMenor){
+    public void restarMenorNoRayado(int numeroMenor) {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 if ((filasRayadas[i] == 0) && (columnasRayadas[j] == 0)) {
-                        matriz[i][j] = matriz[i][j] - numeroMenor;
+                    matriz[i][j] = matriz[i][j] - numeroMenor;
                 }
-                if( (filasRayadas[i] == 1) && (columnasRayadas[j] == 1)){
+                if ((filasRayadas[i] == 1) && (columnasRayadas[j] == 1)) {
                     matriz[i][j] = matriz[i][j] + numeroMenor;
                 }
             }
         }
+    }
+
+    public void realizarAsignaciones() {
+        int cantCerosFila = 0;
+        int asignacion[] = new int[2];
+        int buscarAsignacionesCol = 0;
+        int bandera = faltanAsignaciones();
+        System.out.println("Asignaciones faltan: " + bandera);
+        while (bandera > 0) {
+            buscarAsignacionesCol = bandera;
+            for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz[i].length; j++) {
+                    if ((matriz[i][j] == 0) && (filasAsignadas[i] != 1)) {
+                        asignacion[0] = i;
+                        asignacion[1] = j;
+                        cantCerosFila++;
+                    }
+                }
+                if (cantCerosFila == 1) {
+                    matrizAsignaciones[asignacion[0]][asignacion[1]] = 1;
+                    filasAsignadas[i] = 1;
+                    disminuirMatriz(asignacion[0], asignacion[1]);
+                }
+                cantCerosFila = 0;
+            }
+            if (buscarAsignacionesCol == bandera) {
+                for (int i = 0; i < matriz.length; i++) {
+                    for (int j = 0; j < matriz[i].length; j++) {
+                        if ((matriz[j][i] == 0) && (filasAsignadas[i] != 1)) {
+                            asignacion[0] = i;
+                            asignacion[1] = j;
+                            cantCerosFila++;
+                        }
+                    }
+                    if (cantCerosFila == 1) {
+                        matrizAsignaciones[asignacion[0]][asignacion[1]] = 1;
+                        filasAsignadas[i] = 1;
+                        disminuirMatriz(asignacion[0], asignacion[1]);
+                    }
+                    cantCerosFila = 0;
+                }
+            }
+            if (buscarAsignacionesCol == bandera) {
+                for (int i = 0; i < filasAsignadas.length; i++) {
+                    if (filasAsignadas[i] == 0) {
+                        for (int j = 0; j < matriz[i].length; j++) {
+                            if (matriz[i][j] == 0) {
+                                matrizAsignaciones[i][j] = 1;
+                                filasAsignadas[i] = 1;
+                                disminuirMatriz(i, j);
+                            }
+                        }
+                    }
+                }
+            }
+            bandera = faltanAsignaciones();
+        }
+    }
+
+    public void resetearMatrizAsignaciones() {
+        for (int i = 0; i < matrizAsignaciones.length; i++) {
+            for (int j = 0; j < matrizAsignaciones[i].length; j++) {
+                matrizAsignaciones[i][j] = 0;
+            }
+        }
+    }
+
+    public void disminuirMatriz(int fila, int columna) {
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if ((i == fila) | (j == columna)) {
+                    if (matriz[i][j] == 0) {
+                        matriz[i][j] = -1;
+                    }
+                }
+            }
+        }
+
+    }
+
+    public int faltanAsignaciones() {
+        int cantidad = 0;
+        for (int i = 0; i < filasAsignadas.length; i++) {
+            if (filasAsignadas[i] == 0) {
+                cantidad++;
+            }
+        }
+        return cantidad;
+    }
+
+    public String resultado() {
+        String resultado = "Solucion Optima: \n\n";
+        String asignacion = "\n\nReciben asignaciones: \n\n";
+        resultado += "Z = ";
+        int solucionOptima = 0;
+        for (int i = 0; i < matriz.length; i++) {
+            for (int j = 0; j < matriz[i].length; j++) {
+                if (matrizAsignaciones[i][j] == 1) {
+                    if (i == (matriz.length - 1)) {
+                        resultado += matrizOriginal[i][j] + "\n";
+                    } else {
+                        resultado += matrizOriginal[i][j] + " + ";
+                    }
+                    solucionOptima += matrizOriginal[i][j];
+                    asignacion += "Fila: " + (i + 1) + " - Columna: " + (j + 1) + "\n";
+                }
+            }
+        }
+        resultado += "Z = " + solucionOptima;
+        resultado += asignacion;
+        return resultado;
     }
 }

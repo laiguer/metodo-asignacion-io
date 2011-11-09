@@ -68,7 +68,7 @@ public class UIAsignacion {
                 }
 
                 ventana.getScrTablaCostos().setViewportView(ventana.getTablaCostos());
-                ventana.setSize(630, 670);
+                ventana.setSize(670, 950);
                 ventana.getBtnSolucionOptima().setVisible(true);
             } else {
                 throw new Exception();
@@ -132,7 +132,7 @@ public class UIAsignacion {
         return retorno;
     }
 
-    public void crearMatrizCostos(JTable tabla) {
+    public String crearMatrizCostos(JTable tabla) {
         int[][] matriz = new int[tabla.getRowCount()][tabla.getRowCount()];
         try {
             for (int i = 0; i < tabla.getRowCount(); i++) {
@@ -145,13 +145,13 @@ public class UIAsignacion {
                     }
                 }
             }
-            
+            return administrador.calcularSolOptima(matriz);
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "1) Los costos deben ser numericos y mayores a cero.\n\n"
                     + "2) Debe presionar el boton 'Enter'.\n\n"
                     + "3) Todas las celdas deben tener su costo.", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-        administrador.calcularSolOptima(matriz);
+        return "";
     }
 
     public int obtenerValor(JTable tabla, int indexFila, int indexColumna) {
@@ -159,6 +159,7 @@ public class UIAsignacion {
     }
 
     public void calcularSolOptima(FRPrincipal ventana) {
-        crearMatrizCostos(ventana.getTablaCostos());
+        String resultado = crearMatrizCostos(ventana.getTablaCostos());
+        ventana.getTxtSolucion().setText(resultado);
     }
 }
