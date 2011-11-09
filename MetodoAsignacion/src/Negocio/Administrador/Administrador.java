@@ -90,8 +90,11 @@ public class Administrador {
             filasAsignadas[i] = 0;
         }
         while (rayar() < matriz.length) {
+            imprimirMatriz(matriz);
             restarMenorNoRayado(numeroMenorNoRayado());
+
         }
+
         realizarAsignaciones();
         return resultado();
     }
@@ -188,6 +191,7 @@ public class Administrador {
     }
 
     public int rayar() {
+        resetearRayas();
         String strCerosFilasColumnas = cantCerosFilasColumnas();
         while (strCerosFilasColumnas.isEmpty() == false) {
             String[] cantCerosFilCol = strCerosFilasColumnas.split("-");
@@ -206,8 +210,10 @@ public class Administrador {
             String index = filColRayar.charAt(1) + "";
             if (filColRayar.charAt(0) == '1') {
                 filasRayadas[Integer.parseInt(index)] = 1;
+
             } else {
                 columnasRayadas[Integer.parseInt(index)] = 1;
+
             }
             strCerosFilasColumnas = cantCerosFilasColumnas();
         }
@@ -240,12 +246,13 @@ public class Administrador {
     }
 
     public int numeroMenorNoRayado() {
-        int numeroMenor = 99999 * 99999;
+        int numeroMenor = 99999;
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 if ((filasRayadas[i] == 0) && (columnasRayadas[j] == 0)) {
                     if (matriz[i][j] < numeroMenor) {
                         numeroMenor = matriz[i][j];
+                        System.out.println("Menor " + i + "- " + j + " = " + matriz[i][j]);
                     }
                 }
             }
@@ -271,6 +278,7 @@ public class Administrador {
         int asignacion[] = new int[2];
         int buscarAsignacionesCol = 0;
         int bandera = faltanAsignaciones();
+        imprimirMatriz(matriz);
         while (bandera > 0) {
             buscarAsignacionesCol = bandera;
             for (int i = 0; i < matriz.length; i++) {
@@ -278,13 +286,17 @@ public class Administrador {
                     if ((matriz[i][j] == 0) && (filasAsignadas[i] != 1)) {
                         asignacion[0] = i;
                         asignacion[1] = j;
-                        cantCerosFila++;
+                        cantCerosFila = cantCerosFila + 1;
                     }
                 }
                 if (cantCerosFila == 1) {
                     matrizAsignaciones[asignacion[0]][asignacion[1]] = 1;
                     filasAsignadas[i] = 1;
+
                     disminuirMatriz(asignacion[0], asignacion[1]);
+
+                    bandera = faltanAsignaciones();
+
                 }
                 cantCerosFila = 0;
             }
@@ -301,6 +313,8 @@ public class Administrador {
                         matrizAsignaciones[asignacion[0]][asignacion[1]] = 1;
                         filasAsignadas[i] = 1;
                         disminuirMatriz(asignacion[0], asignacion[1]);
+
+                        bandera = faltanAsignaciones();
                     }
                     cantCerosFila = 0;
                 }
@@ -313,12 +327,13 @@ public class Administrador {
                                 matrizAsignaciones[i][j] = 1;
                                 filasAsignadas[i] = 1;
                                 disminuirMatriz(i, j);
+
+                                bandera = faltanAsignaciones();
                             }
                         }
                     }
                 }
             }
-            bandera = faltanAsignaciones();
         }
     }
 
@@ -374,5 +389,12 @@ public class Administrador {
         resultado += "Z = " + solucionOptima;
         resultado += asignacion;
         return resultado;
+    }
+
+    private void resetearRayas() {
+        for (int i = 0; i < matriz.length; i++) {
+            filasRayadas[i] = 0;
+            columnasRayadas[i] = 0;
+        }
     }
 }
