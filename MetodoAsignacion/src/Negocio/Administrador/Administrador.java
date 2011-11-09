@@ -82,10 +82,8 @@ public class Administrador {
         filasAsignadas = new int[matriz.length];
         filasRayadas = new int[matriz.length];
         columnasRayadas = new int[matriz.length];
-        imprimirMatriz(matriz);
         matriz = restarValorMenorFilas();
         matriz = restarValorMenorColumnas();
-        imprimirMatriz(matriz);
         for (int i = 0; i < columnasRayadas.length; i++) {
             columnasRayadas[i] = 0;
             filasRayadas[i] = 0;
@@ -93,8 +91,6 @@ public class Administrador {
         }
         while (rayar() < matriz.length) {
             restarMenorNoRayado(numeroMenorNoRayado());
-            System.out.println("menor no rayado: " + numeroMenorNoRayado());
-            imprimirMatriz(matriz);
         }
         realizarAsignaciones();
         return resultado();
@@ -210,10 +206,8 @@ public class Administrador {
             String index = filColRayar.charAt(1) + "";
             if (filColRayar.charAt(0) == '1') {
                 filasRayadas[Integer.parseInt(index)] = 1;
-                System.out.println("Fila " + Integer.parseInt(index) + " rayada");
             } else {
                 columnasRayadas[Integer.parseInt(index)] = 1;
-                System.out.println("Columna " + Integer.parseInt(index) + " rayada");
             }
             strCerosFilasColumnas = cantCerosFilasColumnas();
         }
@@ -277,7 +271,6 @@ public class Administrador {
         int asignacion[] = new int[2];
         int buscarAsignacionesCol = 0;
         int bandera = faltanAsignaciones();
-        System.out.println("Asignaciones faltan: " + bandera);
         while (bandera > 0) {
             buscarAsignacionesCol = bandera;
             for (int i = 0; i < matriz.length; i++) {
