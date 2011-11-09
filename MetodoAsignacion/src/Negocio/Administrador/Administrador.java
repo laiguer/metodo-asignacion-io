@@ -90,7 +90,6 @@ public class Administrador {
             filasAsignadas[i] = 0;
         }
         while (rayar() < matriz.length) {
-            imprimirMatriz(matriz);
             restarMenorNoRayado(numeroMenorNoRayado());
 
         }
@@ -252,7 +251,6 @@ public class Administrador {
                 if ((filasRayadas[i] == 0) && (columnasRayadas[j] == 0)) {
                     if (matriz[i][j] < numeroMenor) {
                         numeroMenor = matriz[i][j];
-                        System.out.println("Menor " + i + "- " + j + " = " + matriz[i][j]);
                     }
                 }
             }
