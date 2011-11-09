@@ -11,8 +11,9 @@ package Negocio.Administrador;
 public class Administrador {
 
     private int[][] matriz;
-    private int[] filasRayadas = new int[matriz.length];
-    private int[] columnasRayadas = new int[matriz.length];
+    private int[][] matrizOriginal;
+    private int[] filasRayadas;
+    private int[] columnasRayadas;
 
     public Administrador() {
     }
@@ -41,8 +42,19 @@ public class Administrador {
         this.matriz = matriz;
     }
 
+    public int[][] getMatrizOriginal() {
+        return matrizOriginal;
+    }
+
+    public void setMatrizOriginal(int[][] matrizOriginal) {
+        this.matrizOriginal = matrizOriginal;
+    }
+
     public void calcularSolOptima(int[][] matrizUI) {
         setMatriz(matrizUI);
+        setMatrizOriginal(matrizUI);
+        filasRayadas = new int[matriz.length];
+        columnasRayadas = new int[matriz.length];
         matriz = restarValorMenorFilas();
         matriz = restarValorMenorColumnas();
         for (int i = 0; i < columnasRayadas.length; i++) {
@@ -50,6 +62,7 @@ public class Administrador {
             filasRayadas[i] = 0;
         }
         System.out.println("Rayas = " + rayar());
+        System.out.println("Numero menor no rayado = "+numeroMenorNoRayado());
 
     }
 
