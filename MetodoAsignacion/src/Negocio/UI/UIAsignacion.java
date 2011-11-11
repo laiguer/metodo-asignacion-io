@@ -139,17 +139,17 @@ public class UIAsignacion {
                 for (int j = 1; j <= tabla.getRowCount(); j++) {
                     int valor = obtenerValor(tabla, i, j);
                     if (valor < 0) {
-                        throw new Exception();
+                        throw new NumberFormatException();
                     } else {
                         matriz[i][j - 1] = valor;
                     }
                 }
             }
             return administrador.calcularSolOptima(matriz);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "1) Los costos deben ser numericos y mayores a cero.\n\n"
                     + "2) Debe presionar el boton 'Enter'.\n\n"
-                    + "3) Todas las celdas deben tener su costo.", "ERROR", JOptionPane.ERROR_MESSAGE);
+                    + "3) Todas las celdas deben tener su costo.\n\n", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
         return "";
     }
