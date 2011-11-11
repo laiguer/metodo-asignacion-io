@@ -89,12 +89,10 @@ public class Administrador {
             filasRayadas[i] = 0;
             filasAsignadas[i] = 0;
         }
-        imprimirMatriz(matriz);
+
         while (rayar() < matriz.length) {
             restarMenorNoRayado(numeroMenorNoRayado());
-            imprimirMatriz(matriz);
         }
-        imprimirMatriz(matriz);
         realizarAsignaciones();
         return resultado();
     }
@@ -320,7 +318,7 @@ public class Administrador {
 
             }
 
-            System.out.println("Str = " + s);
+    
             String filColRayar = cantCerosFilCol[0];
             String n = "";
             int c = 0;
@@ -335,7 +333,6 @@ public class Administrador {
             String index = n + "";
             if (filColRayar.charAt(0) == '1') {
                 filasRayadas[Integer.parseInt(index)] = 1;
-
             } else {
                 columnasRayadas[Integer.parseInt(index)] = 1;
 
@@ -410,6 +407,7 @@ public class Administrador {
         int bandera = faltanAsignaciones();
         while (bandera > 0) {
             buscarAsignacionesCol = bandera;
+      
             for (int i = 0; i < matriz.length; i++) {
                 for (int j = 0; j < matriz[i].length; j++) {
                     if ((matriz[i][j] == 0) && (filasAsignadas[i] != 1)) {
@@ -421,7 +419,7 @@ public class Administrador {
                 if (cantCerosFila == 1) {
                     matrizAsignaciones[asignacion[0]][asignacion[1]] = 1;
                     filasAsignadas[i] = 1;
-
+                    System.out.println("Asigne 1 "+asignacion[0]+" - "+asignacion[1]);
                     disminuirMatriz(asignacion[0], asignacion[1]);
 
                     bandera = faltanAsignaciones();
@@ -442,7 +440,7 @@ public class Administrador {
                         matrizAsignaciones[asignacion[0]][asignacion[1]] = 1;
                         filasAsignadas[i] = 1;
                         disminuirMatriz(asignacion[0], asignacion[1]);
-
+                   
                         bandera = faltanAsignaciones();
                     }
                     cantCerosFila = 0;
@@ -456,14 +454,45 @@ public class Administrador {
                                 matrizAsignaciones[i][j] = 1;
                                 filasAsignadas[i] = 1;
                                 disminuirMatriz(i, j);
-
+            
                                 bandera = faltanAsignaciones();
                             }
                         }
                     }
                 }
+                bandera = asignarCasoEspecial(bandera);
             }
         }
+    }
+
+    public int asignarCasoEspecial(int bandera){
+        int cantCeros = 0;
+        for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz[i].length; j++) {
+                    if ((matriz[i][j] == 0) && (filasAsignadas[i] != 1)) {
+                        cantCeros++;
+                    }
+                }
+            }
+        int filaAsignar = 0;
+        if(cantCeros == 0){
+            for (int i = 0; i < filasAsignadas.length; i++) {
+                if( filasAsignadas[i] == 0 )
+                    filaAsignar = i;
+            }
+        }
+
+        for (int i = 0; i < matriz.length; i++) {
+                for (int j = 0; j < matriz[i].length; j++) {
+                    if ( (i == filaAsignar) && (matriz[i][j] != -1) ) {
+                        matrizAsignaciones[i][j] = 1;
+                        filasAsignadas[filaAsignar] = 1;
+                        disminuirMatriz(i, j);
+                        bandera = faltanAsignaciones();
+                    }
+                }
+            }
+        return bandera;
     }
 
     public void resetearMatrizAsignaciones() {
@@ -478,9 +507,7 @@ public class Administrador {
         for (int i = 0; i < matriz.length; i++) {
             for (int j = 0; j < matriz[i].length; j++) {
                 if ((i == fila) | (j == columna)) {
-                    if (matriz[i][j] == 0) {
                         matriz[i][j] = -1;
-                    }
                 }
             }
         }

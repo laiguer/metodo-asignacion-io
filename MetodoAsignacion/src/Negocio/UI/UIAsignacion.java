@@ -31,6 +31,7 @@ public class UIAsignacion {
 
     public void resolver(FRPrincipal ventana) {
         try {
+            ventana.getTxtSolucion().setText("");
             int filas = Integer.parseInt(ventana.getTxtFilas().getText());
             int columnas = Integer.parseInt(ventana.getTxtColumnas().getText());
             int nColumnasFicticias = 0;
